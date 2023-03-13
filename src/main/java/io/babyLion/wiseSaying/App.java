@@ -2,8 +2,9 @@ package io.babyLion.wiseSaying;
 
 import io.babyLion.wiseSaying.system.controller.SystemController;
 import io.babyLion.wiseSaying.wiseSay.controller.WiseSayController;
-import java.util.Scanner;
 
+import java.util.HashMap;
+import java.util.Map;
 public class App {
 
     public void run() {
@@ -22,6 +23,17 @@ public class App {
                 wiseSayController.write();
             } else if (command.equals("목록")) {
                 wiseSayController.list();
+            } else if (command.startsWith("삭제")) {
+                String[] commandBits = command.split("\\?", 2);
+                String actionCode = commandBits[0];
+                Map<String, String> parameters = new HashMap<>();
+                String[] parameterBits = commandBits[1].split("&");
+                
+                for(String parameter : parameterBits) {
+                    String[] parameterBit = parameter.split("=", 2);
+                    parameters.put(parameterBit[0],parameterBit[1]);
+                }
+                System.out.println("명언이 삭제되었습니다.");
             }
         }
     }
